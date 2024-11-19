@@ -50,4 +50,4 @@ Interested in contributing? We welcome developers and enthusiasts! Check out our
 LICENSE
 
 
-Cogwheel is licensed under MIT License in GoldenField's name.
+Cogwheel is licensed under MIT License in CogWheel's name.
