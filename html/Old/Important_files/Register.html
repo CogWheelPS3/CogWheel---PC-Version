@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - CogWheel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c; /* Dark background */
+            color: #eaeaea; /* Light text */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures footer stays at bottom */
+        }
+
+        header {
+            background: #000; /* Black header */
+            color: #eaeaea;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: inline-block; /* Align nav items horizontally */
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #eaeaea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        button {
+            background: #4CAF50; /* Button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-left: 10px; /* Space between buttons */
+        }
+
+        button:hover {
+            background: #45a049; /* Darker button on hover */
+        }
+
+        main {
+            padding: 20px;
+            text-align: center; /* Centering main content */
+            flex-grow: 1; /* Allows main content to grow */
+        }
+
+        .registration-box {
+            background: #2a2a2a; /* Darker background for the box */
+            border-radius: 10px;
+            padding: 20px;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .registration-box h2 {
+            margin-bottom: 15px;
+        }
+
+        .registration-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: #3a3a3a; /* Input background */
+            color: #eaeaea; /* Input text color */
+        }
+
+        .registration-box input::placeholder {
+            color: #b0b0b0; /* Placeholder text color */
+        }
+
+        .warning {
+            color: #ff0000; /* Red warning color */
+            margin-top: 10px;
+            display: none; /* Hidden by default */
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #000; /* Black footer */
+            color: #eaeaea;
+            width: 100%;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            const emailInput = document.getElementById('email');
+            const warningMessage = document.getElementById('warning');
+            const emailValue = emailInput.value;
+
+            // Simple email validation
+            if (!emailValue.includes('@') || !emailValue.includes('.')) {
+                event.preventDefault(); // Prevent form submission
+                warningMessage.style.display = 'block'; // Show warning message
+            } else {
+                warningMessage.style.display = 'none'; // Hide warning message
+
+                // Redirect to login page after a successful registration
+                setTimeout(() => {
+                    window.location.href = 'LogIn.html'; // Change this to your login page URL
+                }, 1000); // Wait for 1 second before redirecting
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to CogWheel</h1>
+        <nav>
+            <ul>
+                <li><a href="featured_games.html">Games</a></li>
+                <li><a href="Store.html">Store</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="support.html">Support</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <button onclick="location.href='LogIn.html';">Login</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="registration-box">
+            <h2>Register</h2>
+            <form onsubmit="validateForm(event)">
+                <input type="text" placeholder="Username" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <span id="warning" class="warning">You need to include "@" in your email address.</span>
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+                <button type="submit">Create Account</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 CogWheel. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+

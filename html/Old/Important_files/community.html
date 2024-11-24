@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - CogWheel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            color: #eaeaea;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #000;
+            color: #eaeaea;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: inline-block;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #eaeaea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .community-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 10px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .discussion-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .discussion-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #333;
+        }
+
+        .discussion-creator {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 5px;
+        }
+
+        .discussion-timestamp {
+            font-size: 0.85em;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .discussion-message {
+            margin-top: 10px;
+            color: #eaeaea;
+        }
+
+        .message-input {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .message-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+            background: #3a3a3a;
+            color: #eaeaea;
+        }
+
+        .message-input button {
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .message-input button:hover {
+            background: #45a049;
+        }
+
+        .login-section {
+            display: flex;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #000;
+            color: #eaeaea;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Community</h1>
+        <nav>
+            <ul>
+                <li><a href="MainPage.html">Home</a></li>
+                <li><a href="Register.html">Sign Up</a></li>
+                <li><a href="LogIn.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="community-section">
+            <h2 class="section-title">Recent Discussions</h2>
+            <ul id="discussion-list" class="discussion-list">
+                <!-- Dynamic messages will be added here -->
+            </ul>
+            <div id="message-section">
+                <!-- Login form for unsigned users -->
+                <div class="login-section" id="login-section">
+                    <input type="text" id="username" placeholder="Enter username">
+                    <button onclick="loginUser()">Login</button>
+                </div>
+                <!-- Message input for signed-in users -->
+                <div class="message-input" id="message-input" style="display: none;">
+                    <input type="text" id="message" placeholder="Type your message...">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 CogWheel. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            loadMessages();
+            checkLoginStatus();
+        });
+
+        function loadMessages() {
+            const discussionList = document.getElementById("discussion-list");
+            const messages = JSON.parse(localStorage.getItem("messages")) || [];
+
+            messages.forEach(({ user, text, timestamp }) => {
+                const listItem = createMessageElement(user, text, timestamp);
+                discussionList.appendChild(listItem);
+            });
+        }
+
+        function sendMessage() {
+            const input = document.getElementById("message");
+            const message = input.value.trim();
+            const username = localStorage.getItem("username");
+
+            if (message && username) {
+                const timestamp = new Date().toLocaleString();
+                const listItem = createMessageElement(username, message, timestamp);
+                document.getElementById("discussion-list").appendChild(listItem);
+
+                const messages = JSON.parse(localStorage.getItem("messages")) || [];
+                messages.push({ user: username, text: message, timestamp });
+                localStorage.setItem("messages", JSON.stringify(messages));
+
+                input.value = "";
+            }
+        }
+
+        function createMessageElement(username, message, timestamp) {
+            const listItem = document.createElement("li");
+            listItem.className = "discussion-item";
+
+            const creatorElement = document.createElement("div");
+            creatorElement.className = "discussion-creator";
+            creatorElement.textContent = `By ${username}`;
+
+            const timestampElement = document.createElement("div");
+            timestampElement.className = "discussion-timestamp";
+            timestampElement.textContent = `Posted on ${timestamp}`;
+
+            const messageElement = document.createElement("div");
+            messageElement.className = "discussion-message";
+            messageElement.textContent = message;
+
+            listItem.appendChild(creatorElement);
+            listItem.appendChild(timestampElement);
+            listItem.appendChild(messageElement);
+
+            return listItem;
+        }
+
+        function checkLoginStatus() {
+            const username = localStorage.getItem("username");
+            if (username) {
+                document.getElementById("login-section").style.display = "none";
+                document.getElementById("message-input").style.display = "flex";
+            } else {
+                document.getElementById("login-section").style.display = "flex";
+                document.getElementById("message-input").style.display = "none";
+            }
+        }
+
+        function loginUser() {
+            const usernameInput = document.getElementById("username");
+            const username = usernameInput.value.trim();
+
+            if (username) {
+                localStorage.setItem("username", username);
+                checkLoginStatus();
+            }
+        }
+    </script>
+</body>
+</html>
+

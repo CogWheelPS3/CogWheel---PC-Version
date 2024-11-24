@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #f39c12;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .error-message {
+            color: #f00;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="login-form">
+        <input type="text" id="login-username" placeholder="Username" required><br>
+        <input type="password" id="login-password" placeholder="Password" required><br>
+        <button type="submit">Log In</button>
+    </form>
+    <div class="error-message" id="error-message"></div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // Retrieve the stored username and password from sessionStorage
+            const storedUsername = sessionStorage.getItem('username');
+            const storedPassword = sessionStorage.getItem('password');
+
+            // Check if the entered username and password match the stored ones
+            if (username === storedUsername && password === storedPassword) {
+                // Successful login, redirect to the main page
+                window.location.href = 'index.html';
+            } else {
+                // Display error message if login fails
+                errorMessage.textContent = 'Sorry, But we didn\'t find any User with that Username or Password.';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!-- Main Page (Home.html) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CogWheel - PC Version</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .store-header {
+            width: 100%;
+            padding: 20px 40px;
+            background-color: #222;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #f39c12;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #f39c12;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            padding-top: 80px; /* Adjusted for header */
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            margin-bottom: 20px;
+        }
+
+        .profile-container img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid #fff;
+        }
+
+        .profile-container span {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .menu-links a {
+            display: block;
+            padding: 15px 20px;
+            color: #bbb;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .menu-links a:hover {
+            background-color: #444;
+            color: #fff;
+        }
+
+        /* Content */
+        .content {
+            margin-left: 250px; /* Sidebar width */
+            margin-top: 120px; /* Adjusted to account for the fixed header */
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: #222;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="store-header">
+        <div class="header-content">
+            <div class="logo">CogWheel</div>
+            <div class="nav-links">
+                <a href="Store2.html">Store</a>
+                <a href="Store.html">Homebrew</a>
+                <a href="Support.html">Support</a>
+                <a href="Community.html">Community</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+        <div class="profile-container" onclick="goToProfilePage()">
+            <img id="profile-pic" src="profilepicture.png" alt="Profile Picture">
+            <span id="username">Profile</span>
+        </div>
+        <div class="menu-links">
+            <a href="Register.html" id="register-link">Register</a>
+            <a href="LogIn.html" id="login-link">Log In</a>
+            <a href="community.html">Community</a>
+            <a href="Store2.html">Homebrew</a>
+            <a href="emulators.html">Emulators</a>
+            <a href="License.html">License</a>
+            <a href="support.html">Support</a>
+            <a href="PrivacyPolicy.html">Privacy Policy</a>
+            <a href="TermsOfUse.html">Terms of Use</a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h1>Welcome to CogWheel</h1>
+        <p>Your one-stop gaming hub for discovering and playing the best PC games!</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 CogWheel. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Check if there's a user logged in
+        const username = sessionStorage.getItem('username');
+        const profilePic = sessionStorage.getItem('profilePic');
+
+        if (username) {
+            // Set the profile picture and username dynamically
+            document.getElementById('username').innerText = username;
+
+            // Set profile picture if available
+            if (profilePic) {
+                document.getElementById('profile-pic').src = profilePic;
+            }
+
+            // Hide the Register and Log In links
+            document.getElementById('register-link').style.display = 'none';
+            document.getElementById('login-link').style.display = 'none';
+        }
+
+        function goToProfilePage() {
+            window.location.href = "MychProfile100.html"; // Redirect to profile page
+        }
+    </script>
+</body>
+</html>
