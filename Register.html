@@ -24,10 +24,23 @@
             border-radius: 5px;
             color: #fff;
             cursor: pointer;
+            margin-top: 20px; /* Added margin to move the button down */
         }
         .error-message {
             color: #f00;
             margin-bottom: 10px;
+        }
+        label {
+            cursor: pointer;
+            background-color: #f39c12;
+            padding: 6px 12px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+        input[type="file"] {
+            display: none;
         }
     </style>
 </head>
@@ -42,6 +55,7 @@
         <input type="password" id="password" placeholder="Password" required><br>
 
         <!-- Profile Picture Upload -->
+        <label for="profile-pic-input">Choose Profile Picture</label>
         <input type="file" id="profile-pic-input" accept="image/*"><br>
 
         <!-- Submit Button -->
