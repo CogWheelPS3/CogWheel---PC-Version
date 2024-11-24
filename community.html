@@ -186,6 +186,9 @@
             const discussionList = document.getElementById("discussion-list");
             const messages = JSON.parse(localStorage.getItem("messages")) || [];
 
+            // Clear any existing messages and reload from localStorage
+            discussionList.innerHTML = '';
+
             messages.forEach(({ user, text, timestamp }) => {
                 const listItem = createMessageElement(user, text, timestamp);
                 discussionList.appendChild(listItem);
@@ -198,13 +201,19 @@
             const username = localStorage.getItem("username");
 
             if (message && username) {
-                const timestamp = new Date().toLocaleString();
-                const listItem = createMessageElement(username, message, timestamp);
-                document.getElementById("discussion-list").appendChild(listItem);
-
+                // Check if the message already exists
                 const messages = JSON.parse(localStorage.getItem("messages")) || [];
-                messages.push({ user: username, text: message, timestamp });
-                localStorage.setItem("messages", JSON.stringify(messages));
+                const existingMessage = messages.find(m => m.text === message && m.user === username);
+
+                // Only add the message if it doesn't already exist
+                if (!existingMessage) {
+                    const timestamp = new Date().toLocaleString();
+                    const listItem = createMessageElement(username, message, timestamp);
+                    document.getElementById("discussion-list").appendChild(listItem);
+
+                    messages.push({ user: username, text: message, timestamp });
+                    localStorage.setItem("messages", JSON.stringify(messages));
+                }
 
                 input.value = "";
             }
@@ -256,4 +265,3 @@
     </script>
 </body>
 </html>
-
