@@ -1,4 +1,3 @@
-<!-- Main Page (Home.html) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,9 +40,14 @@
         }
 
         .logo {
-            font-size: 26px;
-            font-weight: bold;
-            color: #f39c12;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 32px; /* Adjust size of the icon */
+            height: 32px;
+            margin-right: 10px; /* Space between the icon and the text */
         }
 
         .nav-links a {
@@ -108,6 +112,22 @@
             color: #fff;
         }
 
+        .logout-btn {
+            display: block;
+            padding: 15px 20px;
+            color: #f39c12;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 20px;
+            border-top: 1px solid #444;
+        }
+
+        .logout-btn:hover {
+            background-color: #444;
+            color: #fff;
+        }
+
         /* Content */
         .content {
             margin-left: 250px; /* Sidebar width */
@@ -132,12 +152,15 @@
     <!-- Header -->
     <header class="store-header">
         <div class="header-content">
-            <div class="logo">CogWheel</div>
+            <div class="logo">
+                <img id="header-icon" src="Windows_CogWheel_LOGO_v0.5.0.png" alt="CogWheel Icon">
+                CogWheel
+            </div>
             <div class="nav-links">
-                <a href="Store20000.html">Store</a>
+                <a href="Store2.html">Store</a>
                 <a href="Store.html">Homebrew</a>
-                <a href="support.html">Support</a>
-                <a href="community.html">Community</a>
+                <a href="Support.html">Support</a>
+                <a href="Community.html">Community</a>
             </div>
         </div>
     </header>
@@ -152,12 +175,13 @@
             <a href="Register.html" id="register-link">Register</a>
             <a href="LogIn.html" id="login-link">Log In</a>
             <a href="community.html">Community</a>
-            <a href="Store2dev.html">Games (In Progress...)</a>
+            <a href="Store2.html">Homebrew</a>
             <a href="emulators.html">Emulators</a>
             <a href="License.html">License</a>
             <a href="support.html">Support</a>
             <a href="PrivacyPolicy.html">Privacy Policy</a>
             <a href="TermsOfUse.html">Terms of Use</a>
+            <a href="Register.html" class="logout-btn" onclick="logout()">Log Out</a>
         </div>
     </div>
 
@@ -174,8 +198,8 @@
 
     <script>
         // Check if there's a user logged in
-        const username = sessionStorage.getItem('username');
-        const profilePic = sessionStorage.getItem('profilePic');
+        const username = localStorage.getItem('username');
+        const profilePic = localStorage.getItem('profilePic');
 
         if (username) {
             // Set the profile picture and username dynamically
@@ -192,7 +216,11 @@
         }
 
         function goToProfilePage() {
-            window.location.href = "MychProfile100.html"; // Redirect to profile page
+            window.location.href = "MyProfile.html"; // Redirect to profile page
+        }
+
+        function logout() {
+            localStorage.clear(); // Clear all stored data
         }
     </script>
 </body>
