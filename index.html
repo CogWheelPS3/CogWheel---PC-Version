@@ -45,9 +45,9 @@
         }
 
         .logo img {
-            width: 32px; /* Adjust size of the icon */
+            width: 32px;
             height: 32px;
-            margin-right: 10px; /* Space between the icon and the text */
+            margin-right: 10px;
         }
 
         .nav-links a {
@@ -70,7 +70,7 @@
             width: 250px;
             height: 100%;
             background-color: #333;
-            padding-top: 80px; /* Adjusted for header */
+            padding-top: 80px;
             z-index: 999;
             overflow-y: auto;
         }
@@ -121,6 +121,7 @@
             text-align: center;
             margin-top: 20px;
             border-top: 1px solid #444;
+            display: none; /* Hidden initially */
         }
 
         .logout-btn:hover {
@@ -130,8 +131,8 @@
 
         /* Content */
         .content {
-            margin-left: 250px; /* Sidebar width */
-            margin-top: 120px; /* Adjusted to account for the fixed header */
+            margin-left: 250px;
+            margin-top: 120px;
             padding: 30px 40px;
             text-align: center;
         }
@@ -153,7 +154,7 @@
     <header class="store-header">
         <div class="header-content">
             <div class="logo">
-                <img id="header-icon" src="CogWheel_LOGO_v0.5.0.png" alt="CogWheel Icon">
+                <img id="header-icon" src="Windows_CogWheel_LOGO_v0.5.0.png" alt="CogWheel Icon">
                 CogWheel
             </div>
             <div class="nav-links">
@@ -181,7 +182,7 @@
             <a href="support.html">Support</a>
             <a href="PrivacyPolicy.html">Privacy Policy</a>
             <a href="TermsOfUse.html">Terms of Use</a>
-            <a href="Register.html" class="logout-btn" onclick="logout()">Log Out</a>
+            <a href="#" class="logout-btn" onclick="logout()" id="logout-btn">Log Out</a>
         </div>
     </div>
 
@@ -197,30 +198,40 @@
     </footer>
 
     <script>
-        // Check if there's a user logged in
+        // Check login status
         const username = localStorage.getItem('username');
         const profilePic = localStorage.getItem('profilePic');
+        const logoutButton = document.getElementById('logout-btn');
+        const registerLink = document.getElementById('register-link');
+        const loginLink = document.getElementById('login-link');
 
         if (username) {
-            // Set the profile picture and username dynamically
+            // User is logged in
             document.getElementById('username').innerText = username;
 
-            // Set profile picture if available
+            // Update profile picture if available
             if (profilePic) {
                 document.getElementById('profile-pic').src = profilePic;
             }
 
-            // Hide the Register and Log In links
-            document.getElementById('register-link').style.display = 'none';
-            document.getElementById('login-link').style.display = 'none';
+            // Hide register and login links
+            registerLink.style.display = 'none';
+            loginLink.style.display = 'none';
+
+            // Show logout button
+            logoutButton.style.display = 'block';
+        } else {
+            // User is not logged in, redirect to Register page
+            window.location.href = "Register.html";
         }
 
         function goToProfilePage() {
-            window.location.href = "MyProfile.html"; // Redirect to profile page
+            window.location.href = "MyProfile.html";
         }
 
         function logout() {
-            localStorage.clear(); // Clear all stored data
+            localStorage.clear();
+            window.location.href = "LogIn.html"; // Redirect to login page after logout
         }
     </script>
 </body>
